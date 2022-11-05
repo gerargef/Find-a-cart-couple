@@ -1,71 +1,71 @@
 const noop = () => {};
-const NO_PARAMS = {};  
+const NO_PARAMS = {};
 const NO_HEADERS = {};
 const OK_200 = [200];
 
 function requests({
-    method = 'GET',
-    body,
-    url,
-    headers = NO_HEADERS,
-    params = NO_PARAMS,
-    responseType = 'json',
-    requestType = 'json',
-    okResponses = OK_200,
-    checkStatusInResponse = false,
-    onSuccess= noop,
-    onError= noop,
+  method = "GET",
+  body,
+  url,
+  headers = NO_HEADERS,
+  params = NO_PARAMS,
+  responseType = "json",
+  requestType = "json",
+  okResponses = OK_200,
+  checkStatusInResponse = false,
+  onSuccess = noop,
+  onError = noop,
 }) {
-    const req = new XMLHttpRequest;
+  const req = new XMLHttpRequest();
 
-    const urlParams = new URLSearchParams(params);
-    const queryString = urlParams.toString();
+  const urlParams = new URLSearchParams(params);
+  const queryString = urlParams.toString();
 
-    req.open(method, url+ (queryString ? `?${queryString}` : ''));
+  req.open(method, url + (queryString ? `?${queryString}` : ""));
 
-    Object.keys(headers).forEach((key) => {
-        req.setRequestHeader(key, headers[key])})
+  Object.keys(headers).forEach((key) => {
+    req.setRequestHeader(key, headers[key]);
+  });
 
-    req.responseType = responseType;
-    req.onload = function(event) {
-        const target = event.target;
+  req.responseType = responseType;
+  req.onload = function (event) {
+    const target = event.target;
 
-        if (!(okResponses.includes(target.status))) {
-            onError(target.statusText)
+    if (!okResponses.includes(target.status)) {
+      onError(target.statusText);
 
-            return
-        }
-
-        if (checkStatusInResponse && target.response.status !== 'ok') {
-            onError(target.statusText)
-
-            return
-        }
-
-        onSuccess(target.response)
+      return;
     }
 
-    req.onerror = function() {
-        onError();
+    if (checkStatusInResponse && target.response.status !== "ok") {
+      onError(target.statusText);
+
+      return;
     }
 
-    let dataBody;
-    if (requestType === 'urlencoded') {
-        req.setRequestHeader('Content-type','application/x-www-form-urlencoded');
-         dataBody = new URLSearchParams(body).toString() ;
-    }
+    onSuccess(target.response);
+  };
 
-    if (requestType === 'json') {
-        req.setRequestHeader('Content-type','application/json');
+  req.onerror = function () {
+    onError();
+  };
 
-        dataBody = JSON.stringify(body);
+  let dataBody;
+  if (requestType === "urlencoded") {
+    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    dataBody = new URLSearchParams(body).toString();
+  }
 
-    }
+  if (requestType === "json") {
+    req.setRequestHeader("Content-type", "application/json");
 
-    if (requestType === 'form/multipart') {
-        req.setRequestHeader('Content-type','application/form/multipart');
+    dataBody = JSON.stringify(body);
+  }
 
-        dataBody = new FormData(body);
-    }
-    req.send(dataBody);
+  if (requestType === "form/multipart") {
+    req.setRequestHeader("Content-type", "application/form/multipart");
+
+    dataBody = new FormData(body);
+  }
+  req.send(dataBody);
 }
