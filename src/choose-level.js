@@ -5,7 +5,7 @@ class ChooseLevel {
     }
 
     this.element = element;
-    this.chooseLevelFunctiontoGenerateCardField =
+    this.chooseLevelFunctionToGenerateCardField =
       this.chooseLevelFunctionToGenerateCardField.bind(this);
 
     this.renderChooseLevelField();
@@ -32,7 +32,9 @@ class ChooseLevel {
       target.classList.contains("choose-level-page__start-button") &&
       window.application.level
     ) {
-      const cardField = new CardField(
+      console.log(this.element);
+      this.element.classList.add("choose-level-page_hidden");
+      new CardField(
         document.querySelector(".card-field"),
         window.application.level
       );
