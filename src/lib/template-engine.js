@@ -3,11 +3,7 @@ function templateEngine(block) {
     return document.createTextNode("");
   }
 
-  if (
-    typeof block === "string" ||
-    typeof block === "number" ||
-    typeof block === "true"
-  ) {
+  if (typeof block === "string" || typeof block === "number") {
     return document.createTextNode(block);
   }
 
