@@ -18,6 +18,10 @@
     "prettier/prettier": "error",
     "camelcase": ["error"],
     "eqeqeq": ["error", "always"],
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "endOfLine": "off"
+  },
+  "parserOptions": {
+    "sourceType": "module"
   }
 }

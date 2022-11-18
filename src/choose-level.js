@@ -1,9 +1,11 @@
-class ChooseLevel {
+import { templateEngine } from "./lib/template-engine.js";
+import { CardField } from "./card-field.js";
+export class ChooseLevel {
   constructor(element) {
     if (!(element instanceof HTMLElement)) {
       throw new Error("Передан не HTML элемент");
     }
-
+    window.application.gameStatus === "Choose level";
     this.element = element;
     this.chooseLevelFunctionToGenerateCardField =
       this.chooseLevelFunctionToGenerateCardField.bind(this);
@@ -25,18 +27,17 @@ class ChooseLevel {
     const target = event.target;
 
     if (target.classList.contains("choose-level-page__button")) {
-      window.application.level = target.dataset.cardsNumber;
+      window.application.level = target.dataset.level;
     }
 
     if (
       target.classList.contains("choose-level-page__start-button") &&
       window.application.level
     ) {
-      console.log(this.element);
       this.element.classList.add("choose-level-page_hidden");
       new CardField(
         document.querySelector(".card-field"),
-        window.application.level
+        window.application.level * 6
       );
     }
   }
@@ -58,19 +59,19 @@ ChooseLevel.chooseLevelTemplate = {
           tag: "button",
           cls: ["choose-level-page__button", "choose-level-page__button_1"],
           content: "1",
-          attrs: { "data-cards-number": "6" },
+          attrs: { "data-level": "1" },
         },
         {
           tag: "button",
           cls: ["choose-level-page__button", "choose-level-page__button_2"],
           content: "2",
-          attrs: { "data-cards-number": "12" },
+          attrs: { "data-level": "2" },
         },
         {
           tag: "button",
           cls: ["choose-level-page__button", "choose-level-page__button_3"],
           content: "3",
-          attrs: { "data-cards-number": "18" },
+          attrs: { "data-level": "3" },
         },
       ],
     },

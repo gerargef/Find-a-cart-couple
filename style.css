@@ -1,8 +1,8 @@
 @font-face {
   /* stylelint-disable-next-line font-family-name-quotes */
   font-family: "StratosSkyeng";
-  src: url("./fonts/stratosskyengweb-regular.woff2") format("woff2"),
-    url("./fonts/stratosskyengweb-regular.woff") format("woff");
+  src: url("./static/fonts/stratosskyengweb-regular.woff2") format("woff2"),
+    url("./static/fonts/stratosskyengweb-regular.woff") format("woff");
 }
 * {
   padding: 0;
@@ -91,22 +91,32 @@ body {
 }
 
 /* ИГРОВОЕ ПОЛЕ */
-.card-field {
-  position: relative;
-}
+.card-field__cards,
 .card-field__cards-back {
   position: absolute;
 }
 .card-field,
+.card-field__cards,
 .card-field__cards-back {
-  max-width: 75vw;
+  width: 75vw;
+  height: 95vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 5vw;
+}
+.card-field__card_hidden {
+  opacity: 0;
+}
+.card-field__card_in-couple {
+  pointer-events: none;
 }
 .card-field__card:hover {
   cursor: pointer;
   scale: 1.03;
   transition: all 0.2s;
+}
+.card-field_hidden {
+  display: none;
 }

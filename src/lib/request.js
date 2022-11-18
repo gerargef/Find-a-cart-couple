@@ -3,7 +3,7 @@ const NO_PARAMS = {};
 const NO_HEADERS = {};
 const OK_200 = [200];
 
-function requests({
+export function requests({
   method = "GET",
   body,
   url,
