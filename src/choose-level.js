@@ -1,48 +1,39 @@
 import { templateEngine } from "./lib/template-engine.js";
-import { CardField } from "./card-field.js";
-export class ChooseLevel {
-  constructor(element) {
-    if (!(element instanceof HTMLElement)) {
-      throw new Error("Передан не HTML элемент");
-    }
-    window.application.gameStatus === "Choose level";
-    this.element = element;
-    this.chooseLevelFunctionToGenerateCardField =
-      this.chooseLevelFunctionToGenerateCardField.bind(this);
+import { generateCardFieldFunction } from "./card-field.js";
+const chooseLevelPage = document.querySelector(".choose-level-page");
+export function generateChooseLevelField() {
+  window.application.gameStatus === "Choose level";
+  renderChooseLevelField(chooseLevelPage);
+  chooseLevelPage.addEventListener(
+    "click",
+    chooseLevelFunctionToGenerateCardField
+  );
+}
 
-    this.renderChooseLevelField();
+const renderChooseLevelField = (div) => {
+  div.appendChild(templateEngine(chooseLevelTemplate));
+};
 
-    this.element.addEventListener(
-      "click",
-      this.chooseLevelFunctionToGenerateCardField
+const chooseLevelFunctionToGenerateCardField = (event) => {
+  event.preventDefault();
+  const target = event.target;
+
+  if (target.classList.contains("choose-level-page__button")) {
+    window.application.chosenLevel = Number(target.dataset.level);
+  }
+
+  if (
+    target.classList.contains("choose-level-page__start-button") &&
+    window.application.chosenLevel
+  ) {
+    chooseLevelPage.classList.add("choose-level-page_hidden");
+    generateCardFieldFunction(
+      window.application.gameLevels[window.application.chosenLevel]
     );
   }
+};
 
-  renderChooseLevelField() {
-    this.element.appendChild(templateEngine(ChooseLevel.chooseLevelTemplate));
-  }
-
-  chooseLevelFunctionToGenerateCardField(event) {
-    event.preventDefault();
-    const target = event.target;
-
-    if (target.classList.contains("choose-level-page__button")) {
-      window.application.level = target.dataset.level;
-    }
-
-    if (
-      target.classList.contains("choose-level-page__start-button") &&
-      window.application.level
-    ) {
-      this.element.classList.add("choose-level-page_hidden");
-      new CardField(
-        document.querySelector(".card-field"),
-        window.application.level * 6
-      );
-    }
-  }
-}
-ChooseLevel.chooseLevelTemplate = {
+const chooseLevelTemplate = {
   tag: "div",
   cls: "choose-level-page__field",
   content: [

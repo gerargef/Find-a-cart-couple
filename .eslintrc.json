@@ -12,7 +12,8 @@
   "extends": ["eslint:recommended", "prettier"],
   "plugins": ["prettier"],
   "parserOptions": {
-    "ecmaVersion": 2020
+    "ecmaVersion": 2020,
+    "sourceType": "module"
   },
   "rules": {
     "prettier/prettier": "error",
@@ -20,8 +21,5 @@
     "eqeqeq": ["error", "always"],
     "no-unused-vars": "off",
     "endOfLine": "off"
-  },
-  "parserOptions": {
-    "sourceType": "module"
   }
 }
