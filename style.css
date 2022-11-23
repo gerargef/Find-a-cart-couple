@@ -1,8 +1,8 @@
 @font-face {
   /* stylelint-disable-next-line font-family-name-quotes */
   font-family: "StratosSkyeng";
-  src: url("./fonts/stratosskyengweb-regular.woff2") format("woff2"),
-    url("./fonts/stratosskyengweb-regular.woff") format("woff");
+  src: url("./static/fonts/stratosskyengweb-regular.woff2") format("woff2"),
+    url("./static/fonts/stratosskyengweb-regular.woff") format("woff");
 }
 * {
   padding: 0;
@@ -91,22 +91,85 @@ body {
 }
 
 /* ИГРОВОЕ ПОЛЕ */
-.card-field {
-  position: relative;
-}
-.card-field__cards-back {
-  position: absolute;
-}
-.card-field,
-.card-field__cards-back {
-  max-width: 75vw;
+
+.card-field__display-area {
   display: flex;
+  position: fixed;
+  top: 5vh;
+  align-items: center;
+  width: 60vw;
+  justify-content: space-between;
+}
+
+.card-field__again-button {
+  width: 246px;
+  height: 50px;
+  background: #7ac100;
+  border-radius: 12px;
+  color: #fff;
+  font-family: "StratosSkyeng";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 32px;
+  cursor: pointer;
+}
+.card-field__again-button:hover {
+  background: #659f02;
+  transition: all 0.3s;
+}
+.card-field__timer {
+  position: relative;
+  font-size: 64px;
+  line-height: 72px;
+  color: #fff;
+}
+.card-field__timer::after {
+  content: "min";
+  font-size: 16px;
+  line-height: 32px;
+  position: absolute;
+  left: 39px;
+  top: -20px;
+}
+.card-field__timer::before{
+  content: "sek";
+  font-size: 16px;
+  line-height: 32px;
+  position: absolute; 
+  right: 5px;
+  top: -20px;
+}
+.card-field__cards,
+.card-field__cards-back {
+  position: fixed;
+}
+.card-field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-field__cards,
+.card-field__cards-back {
+  margin-top: 10vh;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5vw;
+  align-items: center;
+  gap: 3vw;
+}
+.card-field__card_hidden {
+  opacity: 0;
+}
+.card-field__card_in-couple {
+  pointer-events: none;
 }
 .card-field__card:hover {
   cursor: pointer;
   scale: 1.03;
   transition: all 0.2s;
+}
+.card-field_hidden {
+  display: none;
 }
