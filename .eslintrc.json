@@ -20,6 +20,6 @@
     "camelcase": ["error"],
     "eqeqeq": ["error", "always"],
     "no-unused-vars": "off",
-    "endOfLine": "off"
+    "endOfLine": "auto"
   }
 }

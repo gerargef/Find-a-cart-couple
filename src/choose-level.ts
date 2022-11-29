@@ -1,22 +1,30 @@
 import { templateEngine } from "./lib/template-engine.js";
-import { generateCardFieldFunction } from "./card-field.js";
+import { generateCardFieldFunction } from "./card-field";
 const chooseLevelPage = document.querySelector(".choose-level-page");
+const chooseLevelPageElement: Element = chooseLevelPage!;
+
 export function generateChooseLevelField() {
+  if (chooseLevelPageElement.classList.contains("choose-level-page_hidden")) {
+    chooseLevelPageElement.classList.remove("choose-level-page_hidden");
+  }
   window.application.gameStatus === "Choose level";
-  renderChooseLevelField(chooseLevelPage);
-  chooseLevelPage.addEventListener(
+  renderChooseLevelField(chooseLevelPageElement);
+  chooseLevelPageElement.addEventListener(
     "click",
     chooseLevelFunctionToGenerateCardField
   );
 }
 
-const renderChooseLevelField = (div) => {
+const renderChooseLevelField = (div: Element) => {
+  if (div.querySelector('.choose-level-page__field')) {
+    return
+  }
   div.appendChild(templateEngine(chooseLevelTemplate));
 };
 
-const chooseLevelFunctionToGenerateCardField = (event) => {
+const chooseLevelFunctionToGenerateCardField = (event: Event) => {
   event.preventDefault();
-  const target = event.target;
+  const target = event.target as HTMLElement;
 
   if (target.classList.contains("choose-level-page__button")) {
     window.application.chosenLevel = Number(target.dataset.level);
@@ -26,9 +34,11 @@ const chooseLevelFunctionToGenerateCardField = (event) => {
     target.classList.contains("choose-level-page__start-button") &&
     window.application.chosenLevel
   ) {
-    chooseLevelPage.classList.add("choose-level-page_hidden");
+    chooseLevelPageElement.classList.add("choose-level-page_hidden");
     generateCardFieldFunction(
-      window.application.gameLevels[window.application.chosenLevel]
+      window.application.gameLevels[
+        window.application.chosenLevel as keyof object
+      ]
     );
   }
 };

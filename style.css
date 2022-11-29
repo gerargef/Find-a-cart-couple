@@ -104,6 +104,7 @@ body {
 .card-field__again-button {
   width: 246px;
   height: 50px;
+  border: none;
   background: #7ac100;
   border-radius: 12px;
   color: #fff;
@@ -132,11 +133,11 @@ body {
   left: 39px;
   top: -20px;
 }
-.card-field__timer::before{
+.card-field__timer::before {
   content: "sek";
   font-size: 16px;
   line-height: 32px;
-  position: absolute; 
+  position: absolute;
   right: 5px;
   top: -20px;
 }
@@ -172,4 +173,47 @@ body {
 }
 .card-field_hidden {
   display: none;
+}
+.card-field__display-area_hidden {
+  display: none;
+}
+
+.modal-game-result {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(0, 73, 128, 0.9);
+}
+.modal-game-result_hidden {
+  display: none;
+}
+.modal-game-result__content {
+  display: flex;
+  background: #c2f5ff;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 25vw;
+  height: 25vw;
+  flex-direction: column;
+}
+.modal-game-result__message {
+  font-size: 40px;
+  line-height: 48px;
+  color: #004980;
+}
+.modal-game-result__game-time-message {
+  font-size: 24px;
+  line-height: 32px;
+  color: #000000;
+}
+.modal-game-result__game-time {
+  font-size: 64px;
+  line-height: 72px;
+  color: #000000;
 }
