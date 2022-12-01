@@ -14,7 +14,6 @@ import { stopTimer } from "./timer";
 export function generateCardFieldFunction(cardsQuantity: number) {
   stopTimer();
   cardFieldAgainButton.removeEventListener("click", againButtonHandler);
-  console.log(cardsQuantity);
   cardField.classList.remove("card-field_hidden");
   displayArea.classList.remove("card-field__display-area_hidden");
   createCardField(cardsQuantity);
@@ -75,10 +74,9 @@ const createCardBack = (cardsQuantity: number) => {
   }
 };
 
-const createCardField = (cardsQuantity: number) => {
+export const createCardField = (cardsQuantity: number) => {
   const newHalfRandomCardArray = [];
   for (let index = 0; index < cardsQuantity / 2; index++) {
-    console.log(cardsQuantity);
     newHalfRandomCardArray.push(cardsSrc[createRandomNumberForCard()]);
   }
   const newRandomCardArray = newHalfRandomCardArray.concat(
@@ -94,6 +92,7 @@ const createCardField = (cardsQuantity: number) => {
       templateEngine(cardsTemplateFunction(cardSrc, false))
     );
   }
+  return newRandomCardArray;
 };
 
 const createRandomNumberForCard = () => {
