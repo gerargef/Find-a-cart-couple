@@ -2,8 +2,8 @@ import { templateEngine } from "./lib/template-engine.js";
 import { stopTimer } from './timer'
 import { generateChooseLevelField } from "./choose-level";
 
-const cardField = document.querySelector(".card-field") as Element;
-const modalGameResult = cardField.querySelector('.modal-game-result') as Element;
+// const cardField = document.querySelector(".card-field") as Element;
+// const modalGameResult = cardField.querySelector('.modal-game-result') as Element;
 
 
 export const gameResultFunction = (isWin: boolean) => {
@@ -12,6 +12,8 @@ export const gameResultFunction = (isWin: boolean) => {
     message: isWin ? "Вы выиграли!" : "Вы проиграли!",
     timer:  stopTimer(),
   };
+  const cardField = document.querySelector(".card-field") as Element;
+const modalGameResult = cardField.querySelector('.modal-game-result') as Element;
   if (modalGameResult.classList.contains('modal-game-result_hidden')) {
     modalGameResult.classList.remove('modal-game-result_hidden')
   }
@@ -21,11 +23,14 @@ export const gameResultFunction = (isWin: boolean) => {
 };
 
 const againButtonHandler = () => {
+  const cardField = document.querySelector(".card-field") as Element;
+const modalGameResult = cardField.querySelector('.modal-game-result') as Element;
   const cardFieldAgainButton = modalGameResult.querySelector('.card-field__again-button') as Element;
   cardFieldAgainButton.addEventListener('click', (event: Event) => {
     const cardBacks = document
     .querySelector(".card-field__cards-back") as Element; 
     cardBacks.innerHTML = '';
+    const cardField = document.querySelector(".card-field") as Element;
     const cardFieldCards = cardField
       .querySelector(".card-field__cards") as Element;
       cardFieldCards.innerHTML = '';

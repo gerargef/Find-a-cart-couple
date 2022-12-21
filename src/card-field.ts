@@ -1,11 +1,12 @@
 import { templateEngine } from "./lib/template-engine.js";
 const cardField = document.querySelector(".card-field") as Element;
-const cardFieldAgainButton = cardField.querySelector(
-  ".card-field__again-button"
-) as Element;
-const displayArea = cardField.querySelector(
-  ".card-field__display-area"
-) as Element;
+// const cardFieldAgainButton = cardField.querySelector(
+//   ".card-field__again-button"
+// ) as Element;
+// const displayArea = cardField.querySelector(
+//   ".card-field__display-area"
+// ) as Element;
+const cardFieldElement: Element = cardField!;
 import { cardsSrc } from "./card-src";
 import { gameResultFunction } from "./game-result";
 import { startTimer } from "./timer";
@@ -13,9 +14,15 @@ import { stopTimer } from "./timer";
 
 export function generateCardFieldFunction(cardsQuantity: number) {
   stopTimer();
+  const cardField = document.querySelector(".card-field") as Element;
+  const cardFieldAgainButton = cardField.querySelector(
+    ".card-field__again-button"
+  ) as Element;
   cardFieldAgainButton.removeEventListener("click", againButtonHandler);
-  console.log(cardsQuantity);
   cardField.classList.remove("card-field_hidden");
+  const displayArea = cardField.querySelector(
+    ".card-field__display-area"
+  ) as Element;
   displayArea.classList.remove("card-field__display-area_hidden");
   createCardField(cardsQuantity);
   window.setTimeout(starGame, 5000);
@@ -28,11 +35,6 @@ const starGame = () => {
       window.application.chosenLevel as keyof object
     ]
   );
-  console.log(
-    window.application.gameLevels[
-      window.application.chosenLevel as keyof object
-    ]
-  );
   findACardCoupleFunction();
   window.application.timer = Date.now();
   startTimer();
@@ -40,6 +42,10 @@ const starGame = () => {
 };
 
 const againButton = () => {
+  const cardField = document.querySelector(".card-field") as Element;
+const cardFieldAgainButton = cardField.querySelector(
+  ".card-field__again-button"
+) as Element;
   cardFieldAgainButton.addEventListener("click", againButtonHandler);
 };
 
@@ -48,6 +54,7 @@ const againButtonHandler = () => {
     ".card-field__cards-back"
   ) as Element;
   cardBacks.innerHTML = "";
+  const cardField = document.querySelector(".card-field") as Element;
   const cardFieldCards = cardField.querySelector(
     ".card-field__cards"
   ) as Element;
@@ -75,10 +82,9 @@ const createCardBack = (cardsQuantity: number) => {
   }
 };
 
-const createCardField = (cardsQuantity: number) => {
+export const createCardField = (cardsQuantity: number) => {
   const newHalfRandomCardArray = [];
   for (let index = 0; index < cardsQuantity / 2; index++) {
-    console.log(cardsQuantity);
     newHalfRandomCardArray.push(cardsSrc[createRandomNumberForCard()]);
   }
   const newRandomCardArray = newHalfRandomCardArray.concat(
@@ -87,22 +93,25 @@ const createCardField = (cardsQuantity: number) => {
   shuffle(newRandomCardArray);
   for (let index = 0; index < newRandomCardArray.length; index++) {
     const cardSrc = newRandomCardArray[index];
-    const cardFieldCards = cardField.querySelector(
+    const cardField = document.querySelector(".card-field") as Element;
+    const cardFieldElement: Element = cardField!;
+    const cardFieldCards = cardFieldElement.querySelector(
       ".card-field__cards"
     ) as Element;
     cardFieldCards.appendChild(
       templateEngine(cardsTemplateFunction(cardSrc, false))
     );
   }
+  return newRandomCardArray;
 };
 
-const createRandomNumberForCard = () => {
+export const createRandomNumberForCard = () => {
   let randomNumber;
   randomNumber = Math.round(Math.random() * 35);
   return randomNumber;
 };
 
-const shuffle = (array: Array<string>) => {
+export const shuffle = (array: Array<string>) => {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -124,6 +133,7 @@ const cardsTemplateFunction = (cardSrc: string, isCardBack: boolean) => ({
 
 const findACardCoupleFunction = () => {
   window.application.gameStatus === "Game";
+  const cardField = document.querySelector(".card-field") as Element;
   const cardFieldCards = cardField.querySelector(
     ".card-field__cards"
   ) as Element;
